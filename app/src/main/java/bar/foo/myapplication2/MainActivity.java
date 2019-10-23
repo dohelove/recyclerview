@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -13,12 +16,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         RecyclerView recyclerView = findViewById(R.id.recycler);
-        recyclerView.setAdapter(new MyAdapter(new String[] {"Kim", "Lee", "Won", "Park"}));
+        List<String> dataSet = generateDataSet(new String[] {"Kim", "Lee", "Won", "Park"});
+        recyclerView.setAdapter(new MyAdapter(dataSet));
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
 
+    }
+
+
+    private List<String> generateDataSet(String[] seed) {
+
+        List<String> dataSet = new ArrayList<>();
+
+        for(int i = 0; i < seed.length * 100; i++) {
+            dataSet.add(seed[i % 4]);
+        }
+        return dataSet;
     }
 
 }
